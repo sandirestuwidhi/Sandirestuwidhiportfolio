@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio - Sandi Restu Widhi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { 
+            margin: 0; padding: 0; box-sizing: border-box; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            scroll-behavior: smooth;
+        }
+        
+        :root {
+            --bg-deep: #ffffff;
+            --bg-card: rgba(240, 244, 248, 0.85);
+            --border-liquid: rgba(0, 150, 255, 0.25);
+            --neon-blue: #0099ff;
+            --neon-glow: rgba(0, 153, 255, 0.2);
+            --text-light: #102a43;
+            --text-muted: #486581;
+        }
+
+        body { 
+            background-color: var(--bg-deep);
+            color: var(--text-light); 
+            min-height: 100vh; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 153, 255, 0.04) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 102, 255, 0.04) 0%, transparent 40%);
+        }
+
+        /* Layar Pembuka / Intro Cover */
+        #intro-cover {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: #ffffff;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+            cursor: pointer;
+        }
+
+        #intro-cover.hide {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .intro-center-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .intro-icon-box {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(0, 153, 255, 0.08);
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 25px var(--neon-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: all 0.5s ease;
+        }
+
+        .intro-icon-box i {
+            font-size: 2.8rem;
+            color: var(--neon-blue);
+            filter: drop-shadow(0 0 8px rgba(0,153,255,0.4));
+        }
+
+        .intro-text {
+            color: var(--neon-blue);
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: pulseText 2s infinite;
+        }
+
+        @keyframes pulseText {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; text-shadow: 0 0 10px var(--neon-blue); }
+            100% { opacity: 0.5; }
+        }
+
+        /* Sticky Header Efek Liquid Glass */
+        .header-bg {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-liquid);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+        }
+
+        .nav-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--neon-blue);
+            opacity: 0;
+            width: 0;
+            transform: translateX(-20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .header-bg.scrolled .nav-avatar {
+            opacity: 1;
+            width: 36px;
+            transform: translateX(0);
+        }
+
+        .nav-title {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .hamburger-btn {
+            background: rgba(0, 153, 255, 0.08);
+            border: 1px solid var(--border-liquid);
+            color: var(--neon-blue);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .hamburger-btn:hover {
+            background: var(--neon-blue);
+            color: #ffffff;
+            box-shadow: 0 0 12px var(--neon-glow);
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu-container {
+            position: absolute;
+            top: 65px;
+            right: 16px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            width: 220px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            opacity: 0;
+            transform: translateY(-10px) scale(0.95);
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: 1100;
+            border: 1px solid var(--border-liquid);
+        }
+
+        .dropdown-menu-container.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .menu-item {
+            padding: 10px 14px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.2s;
+        }
+
+        .menu-item i {
+            color: var(--neon-blue);
+            width: 16px;
+        }
+
+        .menu-item:hover {
+            background: rgba(0, 153, 255, 0.1);
+            color: var(--neon-blue);
+        }
+
+        /* App Body Container */
+        .app-body {
+            width: 100%;
+            max-width: 500px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .section-group {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* Kartu Efek Liquid Glass Menyeluruh */
+        .app-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 22px;
+            border: 1px solid rgba(0, 153, 255, 0.15);
+            box-shadow: inset 0 0 15px rgba(0, 153, 255, 0.03), 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out, border-color 0.3s;
+        }
+
+        .app-card:hover {
+            border-color: rgba(0, 153, 255, 0.35);
+            box-shadow: inset 0 0 20px rgba(0, 153, 255, 0.06), 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .app-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Profil Header Center */
+        .profile-header-pro {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            margin-bottom: 16px;
+        }
+
+        .profile-avatar-pro {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 15px var(--neon-glow);
+            margin-bottom: 12px;
+        }
+
+        .profile-name-pro {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-light);
+            letter-spacing: 0.5px;
+        }
+
+        .profile-role-pro {
+            font-size: 0.85rem;
+            color: var(--neon-blue);
+            font-weight: 700;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .profile-location {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .profile-location i {
+            color: var(--neon-blue);
+        }
+
+        /* Grid Sosial Media & Kontak */
+        .action-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .action-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .action-row.centered {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .action-row.centered .action-item {
+            width: calc(33.333% - 7px);
+        }
+
+        .action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 6px;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 12px 8px;
+            border-radius: 14px;
+            border: 1px solid rgba(0, 153, 255, 0.1);
+            transition: 0.2s;
+        }
+
+        .action-item:hover {
+            border-color: var(--neon-blue);
+            background: rgba(0, 153, 255, 0.08);
+        }
+
+        .action-icon {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 28px;
+        }
+
+        .fa-linkedin-in { color: #0a66c2; }
+        .fa-instagram { color: #e1306c; }
+        .fa-tiktok { color: #0099ff; }
+        .fa-envelope { color: #0099ff; }
+        .fa-paint-brush { color: #ff007f; }
+
+        .action-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--neon-blue);
+            letter-spacing: 1px;
+            margin: 10px 0 6px 2px;
+            text-transform: uppercase;
+        }
+
+        .banner-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 4px;
+        }
+        .banner-scroll::-webkit-scrollbar { display: none; }
+
+        .banner-card {
+            min-width: 230px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            color: var(--text-light);
+            padding: 16px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 115px;
+            border: 1px solid var(--border-liquid);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .banner-card.alt {
+            background: rgba(235, 245, 255, 0.85);
+        }
+
+        .banner-title {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: var(--neon-blue);
+        }
+
+        .banner-sub {
+            font-size: 0.73rem;
+            color: var(--text-muted);
+            line-height: 1.35;
+        }
+
+        /* Teks & Paragraf */
+        p { 
+            font-size: 0.9rem; 
+            line-height: 1.65; 
+            color: var(--text-muted); 
+            margin-bottom: 12px; 
+        }
+
+        ul { 
+            margin-left: 20px; 
+            margin-bottom: 14px; 
+        }
+
+        li { 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            line-height: 1.65; 
+            margin-bottom: 8px; 
+        }
+
+        strong {
+            color: var(--text-light);
+        }
+
+        h3.card-title {
+            font-size: 1rem; 
+            margin-bottom: 12px; 
+            color: var(--neon-blue); 
+            display: flex; 
+            align-items: center; 
+            gap: 8px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .job-item {
+            margin-bottom: 20px;
+        }
+        .job-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Kotak Kategori */
+        .category-box {
+            background: rgba(0, 153, 255, 0.04);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(0, 153, 255, 0.12);
+        }
+
+        .category-title {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .category-desc {
+            font-size: 0.83rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .tool-badge {
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--text-light);
+            padding: 12px 10px;
+            border-radius: 14px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 8px;
+            border: 1px solid rgba(0, 153, 255, 0.1);
+            transition: 0.2s;
+        }
+
+        .tool-badge:hover {
+            border-color: var(--neon-blue);
+            background: rgba(0, 153, 255, 0.06);
+            box-shadow: 0 0 12px var(--neon-glow);
+        }
+
+        .tool-badge i {
+            font-size: 1.5rem;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tool-badge.rebedit-item {
+            grid-column: 1 / 2;
+        }
+        .tool-badge.github-item {
+            grid-column: 2 / 3;
+        }
+
+        .fa-file-excel { color: #107c41; }
+        .fa-file-word { color: #2b579a; }
+        .fa-file-powerpoint { color: #d24726; }
+        .fa-pen-nib { color: #ff7200; }
+        .fa-camera { color: #0099ff; }
+        .fa-palette { color: #00c4cc; }
+        .fa-pinterest { color: #bd081c; }
+        .fa-robot { color: #10a37f; }
+        .fa-film { color: #0099ff; }
+        .fa-code { color: #00aa55; }
+        .fa-github { color: #24292e; }
+
+        /* Form Email Instan */
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .email-form input, .email-form textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--border-liquid);
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-light);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .email-form input:focus, .email-form textarea:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-glow);
+        }
+
+        .btn-app {
+            background-color: var(--neon-blue);
+            color: #ffffff;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 4px;
+            box-shadow: 0 4px 15px var(--neon-glow);
+            transition: 0.2s;
+        }
+
+        .btn-app:hover {
+            background-color: #007acc;
+            box-shadow: 0 6px 20px rgba(0, 153, 255, 0.4);
+        }
+
+        #form-status {
+            font-size: 0.85rem;
+            margin-top: 8px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .gallery-item {
+            height: 105px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-liquid);
+            background: #f0f4f8;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Creative Showcase Grid */
+        .creative-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .creative-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--border-liquid);
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: 0.2s;
+        }
+
+        .creative-card:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 12px var(--neon-glow);
+        }
+
+        .creative-img-placeholder {
+            height: 120px;
+            background: rgba(0, 153, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-blue);
+            font-size: 2rem;
+            border-bottom: 1px solid var(--border-liquid);
+        }
+
+        .creative-info {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .creative-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 15px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .version-tag {
+            font-size: 0.7rem;
+            color: var(--neon-blue);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Layar Pembuka / Intro Cover -->
+    <div id="intro-cover" onclick="openPortfolio()">
+        <div class="intro-center-box">
+            <div class="intro-icon-box" id="intro-icon-wrap">
+                <i class="fas fa-power-off" id="intro-icon"></i>
+            </div>
+            <div class="intro-text" id="intro-label">INITIALIZING SYSTEM...</div>
+        </div>
+    </div>
+
+    <!-- Sticky Header Liquid Glass -->
+    <div class="header-bg" id="main-header">
+        <div class="header-left">
+            <img src="Profil.jpg" alt="Sandi" class="nav-avatar" id="nav-avatar">
+            <span class="nav-title">SANDI RESTU WIDHI</span>
+        </div>
+        <button class="hamburger-btn" onclick="toggleMenu()" aria-label="Menu Pintasan">
+            <i class="fas fa-bars" id="hamburger-icon"></i>
+        </button>
+
+        <!-- Dropdown Pintasan Sub-Menu -->
+        <div class="dropdown-menu-container" id="dropdown-menu">
+            <a href="#section-beranda" class="menu-item" onclick="toggleMenu()"><i class="fas fa-home"></i> Beranda</a>
+            <a href="#section-profil" class="menu-item" onclick="toggleMenu()"><i class="fas fa-user"></i> Profil</a>
+            <a href="#section-pencapaian" class="menu-item" onclick="toggleMenu()"><i class="fas fa-chart-line"></i> Pencapaian</a>
+            <a href="#section-tools" class="menu-item" onclick="toggleMenu()"><i class="fas fa-tools"></i> Tools & Skills</a>
+            <a href="#section-creative" class="menu-item" onclick="toggleMenu()"><i class="fas fa-paint-brush"></i> Creative Showcase</a>
+            <a href="#section-galeri" class="menu-item" onclick="toggleMenu()"><i class="fas fa-camera"></i> Galeri</a>
+            <a href="#section-kontak" class="menu-item" onclick="toggleMenu()"><i class="fas fa-envelope"></i> Kontak</a>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="app-body">
+
+        <!-- Kartu Profil Utama Profesional -->
+        <div class="app-card" id="profile-trigger-card">
+            <div class="profile-header-pro">
+                <img src="Profil.jpg" alt="Sandi" class="profile-avatar-pro">
+                <div class="profile-name-pro">Sandi Restu Widhi</div>
+                <div class="profile-role-pro">Operational & Project Leader</div>
+                <div class="profile-location"><i class="fas fa-map-marker-alt"></i> Curugsewu, Patean, Kabupaten Kendal, Jawa Tengah</div>
+            </div>
+
+            <!-- Grid Sosial Media & Kontak -->
+            <div class="action-grid">
+                <div class="action-row">
+                    <a href="https://www.linkedin.com/in/sandi-restu-widhi-4338a5263" target="_blank" class="action-item">
+                        <div class="action-icon"><i class="fab fa-linkedin-in"></i></div>
+                        <span class="action-label">LinkedIn</span>
+                    </a>
+                    <a href="https://instagram.com/sandyrzt" target="_blank" class="action-item">
+                        <div class="action-icon"><i class="fab fa-instagram"></i></div>
+                        <span class="action-label">Instagram</span>
+                    </a>
+                    <a href="https://tiktok.com" target="_blank" class="action-item">
+                        <div class="action-icon"><i class="fab fa-tiktok"></i></div>
+                        <span class="action-label">TikTok</span>
+                    </a>
+                </div>
+                <div class="action-row centered">
+                    <a href="mailto:sandirestuwidi@gmail.com" class="action-item">
+                        <div class="action-icon"><i class="fas fa-envelope"></i></div>
+                        <span class="action-label">Email</span>
+                    </a>
+                    <a href="https://instagram.com/__regzaaa" target="_blank" class="action-item">
+                        <div class="action-icon"><i class="fas fa-paint-brush"></i></div>
+                        <span class="action-label">Creative</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. BERANDA / INTRODUCTION -->
+        <div id="section-beranda" class="section-group">
+            <div>
+                <div class="section-title">Introduction & Journey</div>
+
+                <div class="banner-scroll" style="margin-top: 10px;">
+                    <div class="banner-card">
+                        <div class="banner-title">Operational Excellence</div>
+                        <div class="banner-sub">Berfokus pada efisiensi alur kerja, pengelolaan inventaris, dan kepuasan pelanggan.</div>
+                    </div>
+                    <div class="banner-card alt">
+                        <div class="banner-title">Strategic Execution</div>
+                        <div class="banner-sub">Mengoptimalkan performa operasional dan manajemen sumber daya manusia secara terstruktur.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="app-card">
+                <h3 class="card-title"><i class="fas fa-info-circle"></i> Introduction</h3>
+                <p>Saya Sandi Restu Widhi, lahir pada 4 November 2001, merupakan lulusan S1 Manajemen Bisnis dengan fokus pada SDM.</p>
+                <p>Perjalanan karier saya berakar dari industri manajemen operasional, yang kemudian berkembang melalui eksplorasi dunia kreatif, pengelolaan tim, serta pengembangan bisnis secara universal.</p>
+                <p>Lead • Manage • Create • Impact</p>
+            </div>
+
+            <div class="app-card">
+                <h3 class="card-title"><i class="fas fa-shoe-prints"></i> My Journey</h3>
+                <p><strong>2001 - The Beginning</strong><br>Lahir pada 4 November 2001 di Kendal.</p>
+                <p><strong>2022 - Operational Leadership</strong><br>Memulai kepemimpinan operasional dan manajemen tim.</p>
+                <p><strong>2026 - Management & Impact</strong><br>Menyelesaikan studi S1 Manajemen Bisnis serta memimpin strategi operasional dan pengembangan proyek.</p>
+            </div>
+        </div>
+
+        <!-- 2. PROFIL / EDUCATION & EXPERIENCE -->
+        <div id="section-profil" class="section-group">
+            <div class="app-card">
+                <h3 class="card-title"><i class="fas fa-graduation-cap"></i> Education & Experience</h3>
+                <p><strong>Pendidikan Formal:</strong></p>
+                <ul>
+                    <li>S1 Manajemen Bisnis (Fokus SDM) – STIE Stekom / Universitas Stekom (2026)</li>
+                </ul>
+                <p><strong>Pengalaman Kerja Utama:</strong></p>
+                
+                <div class="job-item">
+                    <p><strong>Operational Manager – PT Zizeng Pacific Trading (2026)</strong></p>
+                    <ul>
+                        <li>Pengelolaan operasional total, manajemen staf, kontrol inventaris, rekrutmen, dan pelaporan manajerial.</li>
+                    </ul>
+                </div>
+
+                <div class="job-item">
+                    <p><strong>Operational Leader – PT MGD Food Indonesia (2022)</strong></p>
+                    <ul>
+                        <li>Pengawasan harian, pengaturan jadwal, pelayanan strategis, serta pencapaian target operasional dan penjualan.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="app-card">
+                <h3 class="card-title"><i class="fas fa-layer-group"></i> My Skills (Kategori Keahlian)</h3>
+                
+                <div class="category-box">
+                    <div class="category-title">LEADERSHIP</div>
+                    <div class="category-desc">Organizational Leadership • Team Management • Public Speaking • Event Management • Decision Making</div>
+                </div>
+
+                <div class="category-box">
+                    <div class="category-title">OPERATIONS</div>
+                    <div class="category-desc">Operational Management • Inventory Control • SOP Compliance • Financial & Cash Flow Reporting</div>
+                </div>
+
+                <div class="category-box">
+                    <div class="category-title">CREATIVE</div>
+                    <div class="category-desc">Graphic Design • Social Media Management • Content Creation • Visual Branding</div>
+                </div>
+
+                <div class="category-box">
+                    <div class="category-title">BUSINESS</div>
+                    <div class="category-desc">Entrepreneurship • Business Management • Marketing • Customer Relations</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. PENCAPAIAN -->
+        <div id="section-pencapaian" class="section-group">
+            <div class="app-card">
+                <h3 class="card-title"><i class="fas fa-chart-line"></i> Rekam Jejak & Pencapaian</h3>
+                
+                <p><strong>Optimalisasi Performa Operasional (Operational Turnaround)</strong></p>
+                <p>Berhasil melakukan peningkatan performa operasional secara konsisten, mencapai target strategis bulanan, serta menjaga standar kualitas tinggi di lapangan.</p>
+
+                <p><strong>Manajemen Aset & Efisiensi Sistem</strong></p>
+                <p>Mengelola kontrol persediaan dan alur kerja secara cermat, memastikan kelancaran sistem, serta meminimalisir risiko kerugian operasional.</p>
+
+                <p><strong>Pengembangan Sumber Daya Manusia</strong></p>
+                <p>Berpengalaman dalam proses rekrutmen, pelatihan (onboarding), serta evaluasi kinerja karyawan guna membangun koordinasi tim yang solid dan profesional.</p>
+            </div>
+        </div>
+
+        <!-- 4. TOOLS & SOFTWARE -->
+        <div id="section-tools" class="section-group">
+            <div class="app-card">
+                <h3 class="card-title"><i class="fas fa-tools"></i> Tools & Software</h3>
+                <p>Aplikasi dan perangkat digital yang digunakan untuk operasional, manajemen, dan kreativitas:</p>
+                
+                <div class="tools-grid">
+                    <div class="tool-badge"><i class="fas fa-file-excel"></i><span>Excel</span></div>
+                    <div class="tool-badge"><i class="fas fa-file-word"></i><span>Word</span></div>
+                    <div class="tool-badge"><i class="fas fa-file-powerpoint"></i><span>PPT</span></div>
+                    <div class="tool-badge"><i class="fas fa-pen-nib"></i><span>CorelDraw</span></div>
+                    <div class="tool-badge"><i class="fas fa-camera"></i><span>Lightroom</span></div>
+                    <div class="tool-badge"><i class="fas fa-palette"></i><span>Canva</span></div>
+                    <div class="tool-badge"><i class="fab fa-pinterest"></i><span>Pinterest</span></div>
+                    <div class="tool-badge"><i class="fas fa-robot"></i><span>ChatGPT</span></div>
+                    <div class="tool-badge"><i class="fas fa-film"></i><span>CapCut</span></div>
+                    <div class="tool-badge rebedit-item"><i class="fas fa-code"></i><span>Reb Edit</span></div>
+                    <div class="tool-badge github-item"><i class="fab fa-github"></i><span>GitHub</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. TAB KHUSUS CREATIVE SHOWCASE -->
+        <div id="section-creative" class="section-group">
+            <div class="app-card">
+                <h3 class="card-title"><i class="fas fa-paint-brush"></i> Creative Showcase</h3>
+                <p>Koleksi karya desain grafis, visual branding, dan hasil proyek kreatif saya:</p>
+                
+                <div class="creative-grid">
+                    <div class="creative-card">
+                        <div class="creative-img-placeholder"><i class="fas fa-image"></i></div>
+                        <div class="creative-info">
+                            <div class="creative-title">Karya Desain 1</div>
+                        </div>
+                    </div>
+                    <div class="creative-card">
+                        <div class="creative-img-placeholder"><i class="fas fa-image"></i></div>
+                        <div class="creative-info">
+                            <div class="creative-title">Karya Desain 2</div>
+                        </div>
+                    </div>
+                    <div class="creative-card">
+                        <div class="creative-img-placeholder"><i class="fas fa-image"></i></div>
+                        <div class="creative-info">
+                            <div class="creative-title">Visual Branding</div>
+                        </div>
+                    </div>
+                    <div class="creative-card">
+                        <div class="creative-img-placeholder"><i class="fas fa-image"></i></div>
+                        <div class="creative-info">
+                            <div class="creative-title">Project Kreatif</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. GALERI -->
+        <div id="section-galeri" class="section-group">
+            <div class="app-card">
+                <h3 class="card-title"><i class="fas fa-camera"></i> Dokumentasi Lapangan</h3>
+                <p>Dokumentasi aktivitas operasional dan momen kerja profesional:</p>
+                <div class="gallery-grid">
+                    <div class="gallery-item"><img src="D1.jpg" alt="Dokumentasi 1"></div>
+                    <div class="gallery-item"><img src="D2.jpg" alt="Dokumentasi 2"></div>
+                    <div class="gallery-item"><img src="D6.jpg" alt="Dokumentasi 3"></div>
+                    <div class="gallery-item"><img src="D4.jpg" alt="Dokumentasi 4"></div>
+                    <div class="gallery-item"><img src="D5.jpg" alt="Dokumentasi 5"></div>
+                    <div class="gallery-item"><img src="D3.jpg" alt="Dokumentasi 6"></div>
+                    <div class="gallery-item"><img src="1788421475629.jpg" alt="Dokumentasi 7"></div>
+                    <div class="gallery-item"><img src="1788421475629.jpg" alt="Dokumentasi 8"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. KONTAK (Endpoint diperbarui ke https://formspree.io/f/xvkoqady dengan AJAX untuk mencegah error Form Not Found) -->
+        <div id="section-kontak" class="section-group">
+            <div class="app-card">
+                <h3 class="card-title"><i class="fas fa-paper-plane"></i> Kirim Penawaran / Pesan</h3>
+                <p>Kirimkan pesan atau penawaran kerja sama secara langsung melalui formulir interaktif di bawah ini tanpa perlu membuka aplikasi email:</p>
+                <form id="contact-form" class="email-form">
+                    <input type="text" name="name" placeholder="Nama / Perusahaan Anda" required>
+                    <input type="email" name="email" placeholder="Email Anda" required>
+                    <textarea name="message" rows="4" placeholder="Tuliskan penawaran atau pesan Anda di sini..." required></textarea>
+                    <button type="submit" class="btn-app" id="submit-btn"><i class="fas fa-paper-plane"></i> Kirim Pesan Langsung</button>
+                    <div id="form-status"></div>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-text">
+            <span>© 2026 Portofolio Sandi Restu Widhi. All Rights Reserved.</span>
+            <span class="version-tag">Web Versi v1.11 (Update ke-11)</span>
+        </div>
+
+    </div>
+
+    <script>
+        // Transisi Otomatis Layar Pembuka setelah 3 Detik ke Ikon Power Center
+        setTimeout(function() {
+            const introIcon = document.getElementById('intro-icon');
+            const introLabel = document.getElementById('intro-label');
+            const introIconWrap = document.getElementById('intro-icon-wrap');
+            if (introIcon && introLabel) {
+                introIcon.className = "fas fa-power-off"; 
+                introIconWrap.style.boxShadow = "0 0 40px #0099ff";
+                introLabel.innerHTML = "KLIK UNTUK MEMBUKA";
+            }
+        }, 3000);
+
+        function openPortfolio() {
+            const cover = document.getElementById('intro-cover');
+            cover.classList.add('hide');
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('dropdown-menu');
+            const icon = document.getElementById('hamburger-icon');
+            menu.classList.toggle('show');
+            if (menu.classList.contains('show')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        window.addEventListener('click', function(e) {
+            const menu = document.getElementById('dropdown-menu');
+            const btn = document.querySelector('.hamburger-btn');
+            if (!menu.contains(e.target) && !btn.contains(e.target)) {
+                menu.classList.remove('show');
+                document.getElementById('hamburger-icon').classList.remove('fa-times');
+                document.getElementById('hamburger-icon').classList.add('fa-bars');
+            }
+        });
+
+        // Penanganan Submit Form via AJAX menggunakan endpoint baru (https://formspree.io/f/xvkoqady)
+        const form = document.getElementById("contact-form");
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const status = document.getElementById("form-status");
+            const btn = document.getElementById("submit-btn");
+            const data = new FormData(event.target);
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+
+            fetch("https://formspree.io/f/xvkoqady", {
+                method: "POST",
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    status.style.color = "#00aa55";
+                    status.innerHTML = "Terima kasih! Pesan berhasil dikirim.";
+                    form.reset();
+                } else {
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            status.style.color = "#ff007f";
+                            status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            status.style.color = "#ff007f";
+                            status.innerHTML = "Oops! Terjadi kesalahan saat mengirim pesan.";
+                        }
+                    })
+                }
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Pesan Langsung';
+            }).catch(error => {
+                status.style.color = "#ff007f";
+                status.innerHTML = "Oops! Terjadi kesalahan koneksi.";
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Pesan Langsung';
+            });
+        }
+        form.addEventListener("submit", handleSubmit);
+
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('main-header');
+            const triggerCard = document.getElementById('profile-trigger-card');
+            const triggerHeight = triggerCard.offsetHeight + 10;
+
+            if (window.scrollY > triggerHeight) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.app-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
