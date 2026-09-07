@@ -35,7 +35,7 @@
                 radial-gradient(circle at 90% 80%, rgba(0, 102, 255, 0.04) 0%, transparent 40%);
         }
 
-        /* Layar Pembuka / Intro Cover */
+        /* Layar Pembuka / Intro Cover dengan Input Sandi */
         #intro-cover {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -47,7 +47,7 @@
             align-items: center;
             text-align: center;
             transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
-            cursor: pointer;
+            padding: 20px;
         }
 
         #intro-cover.hide {
@@ -61,11 +61,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            width: 100%;
+            max-width: 320px;
         }
 
         .intro-icon-box {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             background: rgba(0, 153, 255, 0.08);
             border: 2px solid var(--neon-blue);
@@ -74,28 +76,72 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
-            transition: all 0.5s ease;
         }
 
         .intro-icon-box i {
-            font-size: 2.8rem;
+            font-size: 2.2rem;
             color: var(--neon-blue);
             filter: drop-shadow(0 0 8px rgba(0,153,255,0.4));
         }
 
         .intro-text {
             color: var(--neon-blue);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            animation: pulseText 2s infinite;
+            margin-bottom: 16px;
         }
 
-        @keyframes pulseText {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; text-shadow: 0 0 10px var(--neon-blue); }
-            100% { opacity: 0.5; }
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border-liquid);
+            background: rgba(240, 244, 248, 0.9);
+            color: var(--text-light);
+            font-size: 0.95rem;
+            text-align: center;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .auth-input:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-glow);
+        }
+
+        .auth-btn {
+            background-color: var(--neon-blue);
+            color: #ffffff;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px var(--neon-glow);
+            transition: 0.2s;
+        }
+
+        .auth-btn:hover {
+            background-color: #007acc;
+            box-shadow: 0 6px 20px rgba(0, 153, 255, 0.4);
+        }
+
+        #auth-error {
+            color: #ff007f;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 6px;
+            min-height: 18px;
         }
 
         /* Sticky Header Efek Liquid Glass */
@@ -691,13 +737,18 @@
 </head>
 <body>
 
-    <!-- Layar Pembuka / Intro Cover -->
-    <div id="intro-cover" onclick="openPortfolio()">
+    <!-- Layar Pembuka / Intro Cover dengan Autentikasi Sandi -->
+    <div id="intro-cover">
         <div class="intro-center-box">
-            <div class="intro-icon-box" id="intro-icon-wrap">
-                <i class="fas fa-power-off" id="intro-icon"></i>
+            <div class="intro-icon-box">
+                <i class="fas fa-lock"></i>
             </div>
-            <div class="intro-text" id="intro-label">INITIALIZING SYSTEM...</div>
+            <div class="intro-text">RESTRICTED ACCESS</div>
+            <form id="auth-form" class="auth-form" onsubmit="verifyPassword(event)">
+                <input type="password" id="password-input" class="auth-input" placeholder="Masukkan Sandi..." autocomplete="current-password" required>
+                <button type="submit" class="auth-btn">BUKA PORTOFOLIO</button>
+                <div id="auth-error"></div>
+            </form>
         </div>
     </div>
 
@@ -937,44 +988,43 @@
             </div>
         </div>
 
-        <!-- 7. KONTAK (Endpoint diperbarui ke https://formspree.io/f/xvkoqady dengan AJAX untuk mencegah error Form Not Found) -->
+        <!-- 7. KONTAK -->
         <div id="section-kontak" class="section-group">
             <div class="app-card">
                 <h3 class="card-title"><i class="fas fa-paper-plane"></i> Kirim Penawaran / Pesan</h3>
-                <p>Kirimkan pesan atau penawaran kerja sama secara langsung melalui formulir interaktif di bawah ini tanpa perlu membuka aplikasi email:</p>
-                <form id="contact-form" class="email-form">
-                    <input type="text" name="name" placeholder="Nama / Perusahaan Anda" required>
-                    <input type="email" name="email" placeholder="Email Anda" required>
-                    <textarea name="message" rows="4" placeholder="Tuliskan penawaran atau pesan Anda di sini..." required></textarea>
-                    <button type="submit" class="btn-app" id="submit-btn"><i class="fas fa-paper-plane"></i> Kirim Pesan Langsung</button>
-                    <div id="form-status"></div>
+                <p>Kirimkan pesan atau penawaran kerja sama secara langsung melalui formulir di bawah ini:</p>
+                
+                <form action="https://formspree.io/f/xvkoqady" method="POST" class="email-form">
+                    <input type="text" name="name" placeholder="Nama / Perusahaan Anda" required style="margin-bottom: 10px;">
+                    <input type="email" name="email" placeholder="Your email" required style="margin-bottom: 10px;">
+                    <textarea name="message" rows="4" placeholder="Your message" required style="margin-bottom: 10px;"></textarea>
+                    <button type="submit" class="btn-app"><i class="fas fa-paper-plane"></i> Send</button>
                 </form>
             </div>
         </div>
 
         <div class="footer-text">
             <span>© 2026 Portofolio Sandi Restu Widhi. All Rights Reserved.</span>
-            <span class="version-tag">Web Versi v1.11 (Update ke-11)</span>
+            <span class="version-tag">Web Versi v1.13 (Update ke-13)</span>
         </div>
 
     </div>
 
     <script>
-        // Transisi Otomatis Layar Pembuka setelah 3 Detik ke Ikon Power Center
-        setTimeout(function() {
-            const introIcon = document.getElementById('intro-icon');
-            const introLabel = document.getElementById('intro-label');
-            const introIconWrap = document.getElementById('intro-icon-wrap');
-            if (introIcon && introLabel) {
-                introIcon.className = "fas fa-power-off"; 
-                introIconWrap.style.boxShadow = "0 0 40px #0099ff";
-                introLabel.innerHTML = "KLIK UNTUK MEMBUKA";
-            }
-        }, 3000);
-
-        function openPortfolio() {
+        // Fungsi Verifikasi Sandi pada Layar Pembuka
+        function verifyPassword(event) {
+            event.preventDefault();
+            const inputVal = document.getElementById('password-input').value;
+            const errorDiv = document.getElementById('auth-error');
             const cover = document.getElementById('intro-cover');
-            cover.classList.add('hide');
+
+            // Sandi diverifikasi (tersimpan aman di balik logika skrip)
+            if (inputVal === "Sandi1101") {
+                cover.classList.add('hide');
+            } else {
+                errorDiv.innerHTML = "Sandi salah! Silakan coba lagi.";
+                document.getElementById('password-input').value = "";
+            }
         }
 
         function toggleMenu() {
@@ -999,50 +1049,6 @@
                 document.getElementById('hamburger-icon').classList.add('fa-bars');
             }
         });
-
-        // Penanganan Submit Form via AJAX menggunakan endpoint baru (https://formspree.io/f/xvkoqady)
-        const form = document.getElementById("contact-form");
-        async function handleSubmit(event) {
-            event.preventDefault();
-            const status = document.getElementById("form-status");
-            const btn = document.getElementById("submit-btn");
-            const data = new FormData(event.target);
-            
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
-
-            fetch("https://formspree.io/f/xvkoqady", {
-                method: "POST",
-                body: data,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(response => {
-                if (response.ok) {
-                    status.style.color = "#00aa55";
-                    status.innerHTML = "Terima kasih! Pesan berhasil dikirim.";
-                    form.reset();
-                } else {
-                    response.json().then(data => {
-                        if (Object.hasOwn(data, 'errors')) {
-                            status.style.color = "#ff007f";
-                            status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
-                        } else {
-                            status.style.color = "#ff007f";
-                            status.innerHTML = "Oops! Terjadi kesalahan saat mengirim pesan.";
-                        }
-                    })
-                }
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Pesan Langsung';
-            }).catch(error => {
-                status.style.color = "#ff007f";
-                status.innerHTML = "Oops! Terjadi kesalahan koneksi.";
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Pesan Langsung';
-            });
-        }
-        form.addEventListener("submit", handleSubmit);
 
         window.addEventListener('scroll', function() {
             const header = document.getElementById('main-header');
